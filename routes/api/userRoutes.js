@@ -1,11 +1,19 @@
 // **`/api/users`**
+const router = require('express').Router();
+const {
+    getUsers,
+    getSingleUser,
+    createUser,
+} = require('../../controllers/userController');
 
 // * `GET` all users
+router.route('/').get(getUsers)
 
 // * `GET` a single user by its `_id` and populated thought and friend data
+router.route('/:userId').get(getSingleUser);
 
-// * `POST` a new user:
-
+// * `POST` a new user: DOES THIS NEED TO BE A ENDPOINT
+router.route('/').get(getUsers).post(createUser);
 // ```json
 // // example data
 // {
@@ -29,3 +37,9 @@
 // * `DELETE` to remove a friend from a user's friend list
 
 // ---
+
+// /api/users
+
+// /api/users/:userId
+
+module.exports = router;
