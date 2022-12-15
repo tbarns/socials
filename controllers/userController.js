@@ -1,5 +1,5 @@
 const User = require('../models/User');
-
+//these are the CRUD operations
 module.exports = {
   getUsers(req, res) {
     User.find()
@@ -20,6 +20,17 @@ module.exports = {
   createUser(req, res) {
     User.create(req.body)
       .then((dbUserData) => res.json(dbUserData))
+      .catch((err) => res.status(500).json(err));
+  },
+  //deleteUser
+  deleteSingleUser(req, res) {
+    User.findOneAndDelete({ _id: req.params.userId })
+      .select('-__v')
+      .then((user) =>
+        !user
+          ? res.status(404).json({ message: 'No user with that ID' })
+          : res.json(user)
+      )
       .catch((err) => res.status(500).json(err));
   },
 };

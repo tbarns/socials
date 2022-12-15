@@ -1,3 +1,3 @@
 const connection = require('../config/connection');
-const { } = require('../models');
+const { User, Thought} = require('../models');
 const {  } = require('./data');
