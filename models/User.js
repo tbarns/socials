@@ -3,7 +3,7 @@ const { Schema, model, default: mongoose } = require('mongoose');
 
 const usersSchema = new mongoose.Schema({
 username:{ type: String, unique: true, required: true, trim: true},
-email: { type, String, unique: true, required: true, },
+email: { type: String, unique: true, required: true, },
 //   * Must match a valid email address (look into Mongoose's matching validation)
 thoughts:[
     {
