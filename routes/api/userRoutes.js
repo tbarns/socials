@@ -5,16 +5,13 @@ const {
     getSingleUser,
     createUser,
     deleteSingleUser,
+    updateSingleUser,
 } = require('../../controllers/userController');
 
 // * `GET` all users
-
-
-// * `GET` a single user by its `_id` and populated thought and friend data
-
-
+// * `PUT` to update a user by its `_id`
 // * `POST` a new user: DOES THIS NEED TO BE A ENDPOINT
-router.route('/').get(getUsers).post(createUser);
+router.route('/').get(getUsers).post(createUser).put(updateSingleUser);
 // ```json
 // // example data
 // {
@@ -23,24 +20,8 @@ router.route('/').get(getUsers).post(createUser);
 // }
 // ```
 
-// * `PUT` to update a user by its `_id`
-
+// * `GET` a single user by its `_id` and populated thought and friend data
 // * `DELETE` to remove user by its `_id`
-router.route('/:userId').get(getSingleUser).delete(deleteSingleUser);
-// **BONUS**: Remove a user's associated thoughts when deleted.
-
-// ---
-
-// **`/api/users/:userId/friends/:friendId`**
-
-// * `POST` to add a new friend to a user's friend list
-
-// * `DELETE` to remove a friend from a user's friend list
-
-// ---
-
-// /api/users
-
-// /api/users/:userId
+router.route('/:userId').get(getSingleUser).delete(deleteSingleUser)   ;
 
 module.exports = router;
