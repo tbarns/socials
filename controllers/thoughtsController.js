@@ -9,7 +9,7 @@ module.exports = {
     },
 
     getSingleThought(req, res) {
-        Thoughts.findOne({ _id: req.params.thoughtsId })
+        Thoughts.findOne({ _id: req.params.userId })
             .select('-__v')
             .then((Thoughts) =>
                 !Thoughts
@@ -27,7 +27,7 @@ module.exports = {
 
 
     deleteSingleThought(req, res) {
-        Thoughts.findOneAndDelete({ _id: req.params.thoughtsId })
+        Thoughts.findOneAndDelete({ _id: req.params.userId })
             .select('-__v')
             .then((Thoughts) =>
                 !Thoughts
@@ -40,7 +40,7 @@ module.exports = {
 
     updateSingleThought(req, res) {
         const update = req.body
-        Thoughts.findOneAndUpdate({ _id: req.params.thoughtsId, update })
+        Thoughts.findOneAndUpdate({ _id: req.params.userId, update })
             .select('-__v')
             .then((Thoughts) =>
                 !Thoughts
