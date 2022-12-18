@@ -1,23 +1,30 @@
-const mongoose = require('mongoose');
-const reactionsSchema =require('./Reactions.js')
+const { Schema, model, default: mongoose } = require('mongoose');
+const reactionsSchema = require('./Reactions.js')
 // **Thought**:
 const thoughtsSchema = new mongoose.Schema({
-    thoughtText: { type: String, required: true, minLength: 1, maxLength: 280 },
-    createdAt:{type:Date, default: Date.now},
-    //use utils preset to do the getter method
-    username:{ type:String, required: true },
-    reactions:[reactionsSchema]
-    
-},
-{
-    toJSON:{
-        getters:true,
-        virtuals: true,
+    thoughtText: {
+        type: String, required: true, minLength: 1, maxLength: 280
     },
-    id:false,
-}
+    createdAt: {
+        type: Date, default: Date.now
+    },
+    //use utils preset to do the getter method
+    username: {
+        type: String, required: true
+    },
+    reactions:
+        [reactionsSchema]
+
+},
+    {
+        toJSON: {
+            getters: true,
+            virtuals: true,
+        },
+        id: false,
+    }
 )
-const Thought= model('thought', thoughtsSchema )
+const Thoughts = model('thoughts', thoughtsSchema)
 
 // * `createdAt`
 //   * Date
@@ -29,4 +36,4 @@ const Thought= model('thought', thoughtsSchema )
 // **Schema Settings**:
 
 // Create a virtual called `reactionCount` that retrieves the length of the thought's `reactions` array field on query.
-module.exports = Thought;
+module.exports = Thoughts;
