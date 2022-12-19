@@ -39,15 +39,19 @@ module.exports = {
 
 
     updateSingleThought(req, res) {
-        const update = req.body
-        Thoughts.findOneAndUpdate({ _id: req.params.userId, update })
-            .select('-__v')
-            .then((Thoughts) =>
-                !Thoughts
-                    ? res.status(404).json({ message: 'NoThoughts with that ID' })
-                    : res.json(Thoughts)
+        Thoughts.findOneAndUpdate(
+            { _id: req.params.userId },
+            { $set: req.body },
+            { runValidators: true, new: true }
+          )
+            .then((thoughts) =>
+              !thoughts
+                ? res.status(404).json({ message: 'No thoughts with this id!' })
+                : res.json(thoughts)
             )
-            .catch((err) => res.status(500).json(err));
-    },
-
+            .catch((err) => {
+              console.log(err);
+              res.status(500).json(err);
+            });
+        },
 };

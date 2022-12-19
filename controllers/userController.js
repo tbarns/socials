@@ -24,17 +24,21 @@ module.exports = {
   },
   //update User
   updateSingleUser(req, res) {
-    const update = req.body
-    User.findOneAndUpdate({ _id: req.params.userId, update })
-      .select('-__v')
+    User.findOneAndUpdate(
+      { _id: req.params.userId },
+      { $set: req.body },
+      { runValidators: true, new: true }
+    )
       .then((user) =>
         !user
-          ? res.status(404).json({ message: 'No user with that ID' })
+          ? res.status(404).json({ message: 'No user with this id!' })
           : res.json(user)
       )
-      .catch((err) => res.status(500).json(err));
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
   },
-
 
 
   //deleteUser
