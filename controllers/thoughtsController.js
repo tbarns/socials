@@ -43,15 +43,50 @@ module.exports = {
             { _id: req.params.userId },
             { $set: req.body },
             { runValidators: true, new: true }
-          )
+        )
             .then((thoughts) =>
-              !thoughts
-                ? res.status(404).json({ message: 'No thoughts with this id!' })
-                : res.json(thoughts)
+                !thoughts
+                    ? res.status(404).json({ message: 'No thoughts with this id!' })
+                    : res.json(thoughts)
             )
             .catch((err) => {
-              console.log(err);
-              res.status(500).json(err);
+                console.log(err);
+                res.status(500).json(err);
             });
-        },
+    },
+
+    //function that reachtion post
+    addSingleReaction(req, res) {
+        Thoughts.findOneAndUpdate(
+            { _id: req.params.thoughtId },
+            { $set: { reactions: req.body } },
+            { runValidators: true, new: true }
+        )
+            .then((thoughts) =>
+                !thoughts
+                    ? res.status(404).json({ message: 'No thoughts with this id!' })
+                    : res.json(thoughts)
+            )
+            .catch((err) => {
+                console.log(err);
+                res.status(500).json(err);
+            });
+    },
+    removeReaction(req, res) {
+        Student.findOneAndUpdate(
+          { _id: req.params.thoughtId },
+          { $pull: { reaction: { reactionId: req.params.reactionId } } },
+          { runValidators: true, new: true }
+        )
+          .then((student) =>
+            !student
+              ? res
+                  .status(404)
+                  .json({ message: 'No reaction found with that ID :(' })
+              : res.json(student)
+          )
+          .catch((err) => res.status(500).json(err));
+      },
+    
+    
 };
