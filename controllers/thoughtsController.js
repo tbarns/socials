@@ -73,17 +73,17 @@ module.exports = {
             });
     },
     removeReaction(req, res) {
-        Student.findOneAndUpdate(
+        Thoughts.findOneAndUpdate(
           { _id: req.params.thoughtId },
-          { $pull: { reaction: { reactionId: req.params.reactionId } } },
+          { $pull: { reactions: { reactionId: req.params.reactionId } } },
           { runValidators: true, new: true }
         )
-          .then((student) =>
-            !student
+          .then((reactions) =>
+            !reactions
               ? res
                   .status(404)
                   .json({ message: 'No reaction found with that ID :(' })
-              : res.json(student)
+              : res.json(reactions)
           )
           .catch((err) => res.status(500).json(err));
       },
