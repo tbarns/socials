@@ -4,7 +4,7 @@
 
 ## Description
 
-I was tasked with creating a MongoDB that took in user input perfomred DRUD operations.  This used and express server but was not deployed.
+I was tasked with creating a MongoDB that took in user input perfomred CRUD operations.  This used and express server but was not deployed.
 
 ## Table of contents 
 
